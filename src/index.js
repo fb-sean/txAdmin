@@ -147,6 +147,7 @@ if (fs.existsSync(zapCfgFile)) {
             mysqlUser: zapCfgData.defaults.mysqlUser,
             mysqlPassword: zapCfgData.defaults.mysqlPassword,
             mysqlDatabase: zapCfgData.defaults.mysqlDatabase,
+            mySqlPort: zapCfgData.defaults.mySqlPort,
         };
         if (zapCfgData.customer) {
             if (typeof zapCfgData.customer.name !== 'string') throw new Error('customer.name is not a string.');

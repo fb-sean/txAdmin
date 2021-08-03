@@ -43,6 +43,7 @@ module.exports = async function DeployerStepper(ctx) {
             renderData.defaults = {
                 autofilled: true,
                 license: GlobalData.deployerDefaults.license || '',
+                mysqlPort: GlobalData.deployerDefaults.mysqlPort || '3306',
                 mysqlHost: GlobalData.deployerDefaults.mysqlHost || 'localhost',
                 mysqlUser: GlobalData.deployerDefaults.mysqlUser || 'root',
                 mysqlPassword: GlobalData.deployerDefaults.mysqlPassword || '',
@@ -55,6 +56,7 @@ module.exports = async function DeployerStepper(ctx) {
                 mysqlHost: 'localhost',
                 mysqlUser: 'root',
                 mysqlPassword: '',
+                mysqlPort: '3306',
                 mysqlDatabase: globals.deployer.deploymentID,
             };
         }

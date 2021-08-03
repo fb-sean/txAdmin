@@ -94,6 +94,12 @@ async function handleSetVariables(ctx) {
         return ctx.send({type: 'danger', message: 'The Server License does not appear to be valid.'});
     }
 
+    const parsedDbPort = parseInt(userVars.dbPort);
+
+    if (isNaN(parsedDbPort)) {
+        return ctx.send({type: 'danger', message: 'The port is not valid (non-integer)' });
+    }
+
     //DB Stuff
     if (typeof userVars.dbDelete !== 'undefined') {
         //Testing the db config
@@ -102,6 +108,7 @@ async function handleSetVariables(ctx) {
                 host: userVars.dbHost,
                 user: userVars.dbUsername,
                 password: userVars.dbPassword,
+                port: parsedDbPort,
             };
             await mysql.createConnection(mysqlOptions);
         } catch (error) {
@@ -119,8 +126,8 @@ async function handleSetVariables(ctx) {
         //Setting connection string
         userVars.dbDelete = (userVars.dbDelete === 'true');
         userVars.dbConnectionString = (userVars.dbPassword.length)
-            ? `mysql://${userVars.dbUsername}:${userVars.dbPassword}@${userVars.dbHost}/${userVars.dbName}?charset=utf8mb4`
-            : `mysql://${userVars.dbUsername}@${userVars.dbHost}/${userVars.dbName}?charset=utf8mb4`;
+            ? `mysql://${userVars.dbUsername}:${userVars.dbPassword}@${userVars.dbHost}:${parsedDbPort}/${userVars.dbName}?charset=utf8mb4`
+            : `mysql://${userVars.dbUsername}@${userVars.dbHost}:${parsedDbPort}/${userVars.dbName}?charset=utf8mb4`;
     }
 
     //Max Clients & Server Endpoints

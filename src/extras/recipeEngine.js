@@ -344,10 +344,11 @@ const taskConnectDatabase = async (options, basePath, deployerCtx) => {
     if (typeof deployerCtx.dbPassword !== 'string') throw new Error('dbPassword should be a string');
     if (typeof deployerCtx.dbName !== 'string') throw new Error('dbName should be a string');
     if (typeof deployerCtx.dbDelete !== 'boolean') throw new Error('dbDelete should be a boolean');
-
+    if (typeof deployerCtx.dbPort !== 'number') throw new Error('dbPort should be a string');
     //Connect to the database
     const mysqlOptions = {
         host: deployerCtx.dbHost,
+        port: deployerCtx.dbPort,
         user: deployerCtx.dbUsername,
         password: deployerCtx.dbPassword,
         multipleStatements: true,
