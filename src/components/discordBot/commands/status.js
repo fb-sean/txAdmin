@@ -1,13 +1,13 @@
 //Requires
 const modulename = 'DiscordBot:cmd:status';
 const humanizeDuration = require('humanize-duration');
-const { RichEmbed } = require('@tabarra/discord');
+const { MessageEmbed } = require('discord.js');
 const { dir, log, logOk, logWarn, logError } = require('../../../extras/console')(modulename);
 
 module.exports = {
     description: 'Prints the server status',
     cooldown: 60,
-    async execute(message, args) {
+    async execute(interaction, args) {
         //Prepare message's RichEmbed + template variables
         let replaces = {};
         let cardColor, cardTitle;
@@ -37,12 +37,12 @@ module.exports = {
         });
 
         //Prepare object
-        const outMsg = new RichEmbed({
-            color: cardColor,
-            title: cardTitle,
-            description: desc,
-            footer: `Powered by txAdmin v${GlobalData.txAdminVersion}.`,
-        });
-        return await message.channel.send(outMsg);
+        const outMsg = new MessageEmbed()
+        .setColor(cardColor)
+        .setTitle(cardTitle)
+        .setDescription(desc)
+        .setFooter(`Powered by txAdmin v${GlobalData.txAdminVersion}.`);
+
+        return await interaction.reply({embeds: [outMsg]});
     },
 };
