@@ -39,24 +39,10 @@ module.exports = class DiscordBot {
 
         //NOTE: setting them up statically due to webpack requirements
 
-
-        // Old Version!
-        /*this.commands = new Map([
-            ['addwl', require('./commands/addwl.js')],
-            ['help', require('./commands/help.js')],
-            ['status', require('./commands/status.js')],
-            ['txadmin', require('./commands/txadmin.js')],
-
-            //FIXME: first we need to have player ids in the players db
-            // ['info', require('./commands/info.js')],
-        ]);*/
-
-
-
      
         this.commands = new Discord.Collection();
         this.slashCommands = new Discord.Collection();
-        this.cooldowns = new Map();
+        this.cooldowns = new Discord.Collection();
 
         if (!this.config.enabled) {
             // logOk('Disabled by the config file.');
